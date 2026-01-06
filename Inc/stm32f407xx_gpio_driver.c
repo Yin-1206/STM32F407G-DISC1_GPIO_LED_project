@@ -99,7 +99,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG){
 		// non interrupt mode
 		temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); // 乘以2是因為一個MODER register占2bit，要移動2個bit才能到下一個MODER register的起始位址
-		pGPIOHandle->pGPIOx->MODER &= ~(0x3 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); // Clear
+		pGPIOHandle->pGPIOx->MODER &= ~(0x3 << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); // Clear
 		pGPIOHandle->pGPIOx->MODER |= temp; // Set
 		temp = 0;
 	}else{
