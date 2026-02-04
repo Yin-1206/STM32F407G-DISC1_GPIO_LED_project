@@ -34,34 +34,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := STM32F407DISC_GPIO
+BUILD_ARTIFACT_NAME := STM32F407G-DISC1_GPIO_LED_project
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-STM32F407DISC_GPIO.elf \
+STM32F407G-DISC1_GPIO_LED_project.elf \
 
 MAP_FILES += \
-STM32F407DISC_GPIO.map \
+STM32F407G-DISC1_GPIO_LED_project.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-STM32F407DISC_GPIO.list \
+STM32F407G-DISC1_GPIO_LED_project.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: STM32F407DISC_GPIO.elf secondary-outputs
+main-build: STM32F407G-DISC1_GPIO_LED_project.elf secondary-outputs
 
 # Tool invocations
-STM32F407DISC_GPIO.elf STM32F407DISC_GPIO.map: $(OBJS) $(USER_OBJS) A:\My_File\MCU1-Udemy\MCU1\STM32F407DISC_GPIO\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32F407DISC_GPIO.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"A:\My_File\MCU1-Udemy\MCU1\STM32F407DISC_GPIO\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F407DISC_GPIO.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+STM32F407G-DISC1_GPIO_LED_project.elf STM32F407G-DISC1_GPIO_LED_project.map: $(OBJS) $(USER_OBJS) A:\My_File\side_project\STM32F407G-DISC1_GPIO_LED_project\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32F407G-DISC1_GPIO_LED_project.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"A:\My_File\side_project\STM32F407G-DISC1_GPIO_LED_project\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F407G-DISC1_GPIO_LED_project.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +70,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-STM32F407DISC_GPIO.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "STM32F407DISC_GPIO.list"
+STM32F407G-DISC1_GPIO_LED_project.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "STM32F407G-DISC1_GPIO_LED_project.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) STM32F407DISC_GPIO.elf STM32F407DISC_GPIO.list STM32F407DISC_GPIO.map default.size.stdout
+	-$(RM) STM32F407G-DISC1_GPIO_LED_project.elf STM32F407G-DISC1_GPIO_LED_project.list STM32F407G-DISC1_GPIO_LED_project.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
