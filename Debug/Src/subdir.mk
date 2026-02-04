@@ -5,17 +5,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/GPIO_Polling.c \
+../Src/GPIO_interrupt.c \
 ../Src/syscalls.c \
 ../Src/sysmem.c 
 
 OBJS += \
-./Src/GPIO_Polling.o \
+./Src/GPIO_interrupt.o \
 ./Src/syscalls.o \
 ./Src/sysmem.o 
 
 C_DEPS += \
-./Src/GPIO_Polling.d \
+./Src/GPIO_interrupt.d \
 ./Src/syscalls.d \
 ./Src/sysmem.d 
 
@@ -27,7 +27,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/GPIO_Polling.cyclo ./Src/GPIO_Polling.d ./Src/GPIO_Polling.o ./Src/GPIO_Polling.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/GPIO_interrupt.cyclo ./Src/GPIO_interrupt.d ./Src/GPIO_interrupt.o ./Src/GPIO_interrupt.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
 
 .PHONY: clean-Src
 
