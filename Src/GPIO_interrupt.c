@@ -6,7 +6,7 @@
 
 void ConfigGPIOLed1(GPIO_Handle_t *pGPIOLed1); // 配置 PD12 LED (push-pull)
 void ConfigGPIOLed2(GPIO_Handle_t *pGPIOLed2); // 配置 PD13 LED (push-pull)
-void ConfigGPIOBtn(GPIO_Handle_t *pGPIOBtn); // 配置 PA0 按鈕 (負緣觸發)
+void ConfigGPIOBtn(GPIO_Handle_t *pGPIOBtn); // 配置 PA0 按鈕 (正緣觸發)
 void EXTI0_IRQHandler(void);
 void delay(void);
 
@@ -97,7 +97,7 @@ void ConfigGPIOBtn(GPIO_Handle_t *pGPIOBtn){
     pGPIOBtn->GPIO_PinConfig.GPIO_PinNumber      = GPIO_PIN_NO_0;
     pGPIOBtn->GPIO_PinConfig.GPIO_PinMode        = GPIO_MODE_IT_RT;  // 正緣觸發中斷事件(按下瞬間觸發)
     pGPIOBtn->GPIO_PinConfig.GPIO_PinSpeed       = GPIO_SPD_VHIGH;
-    pGPIOBtn->GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;          // 內部上拉電阻
+    pGPIOBtn->GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
     pGPIOBtn->GPIO_PinConfig.GPIO_PinAltFunMode  = 0;
 }
 
