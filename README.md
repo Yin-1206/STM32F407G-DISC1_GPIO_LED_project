@@ -5,7 +5,7 @@
 `Inc` : 存放driver file(stm32f407xx_gpio_driver.h、stm32f407xx_gpio_driver.c)以及stm32f407相關macro(stm32f407xx.h)。
 
 `Src` : 存放main application file
-- `main.c`: 透過輪詢(Polling)實現LED閃爍。
+- `GPIO_polling.c`: 透過輪詢(Polling)實現LED閃爍。
 - `GPIO_interrupt.c`: 透過外部中斷(Interrupt)實現LED燈閃爍。
 
 # GPIO driver API
