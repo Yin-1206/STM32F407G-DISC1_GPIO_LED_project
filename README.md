@@ -5,8 +5,26 @@
 `Inc` : 存放driver file(stm32f407xx_gpio_driver.h、stm32f407xx_gpio_driver.c)以及stm32f407相關macro(stm32f407xx.h)。
 
 `Src` : 存放main application file
-- `main.c`: 透過輪詢(Polling)實現LED閃爍。
+- `GPIO_polling.c`: 透過輪詢(Polling)實現LED閃爍。
 - `GPIO_interrupt.c`: 透過外部中斷(Interrupt)實現LED燈閃爍。
+
+# Polling(輪詢)
+在這個實驗中，透過兩個 LED（PD12 -> 按鍵觸發, PD13 -> 週期閃爍）與一個按鈕（PA0），具體呈現了兩種輪詢架構的差異。  
+
+## 阻塞式輪詢 (Blocking Polling) —— 「獨佔資源」
+使用 `for-loop` 實現延遲。  
+
+`開發板行為觀察`:
+- 按下 PA0 後，PD12 LED 的切換會明顯延遲(delay for-loop 1000000次)，且按鍵手感極度不靈敏。
+- 在 PD12 處理延遲時，原本應穩定自動閃爍的 PD13 LED 會完全停止，直到延遲結束。
+>註: 在此實驗中，刻意將 Blocking 模式下的 delay 次數拉長至 1,000,000 次，這並非程式碼冗餘，而是為了視覺化系統效能瓶頸(在開發板上能明顯看到問題)。
+
+## 非阻塞式輪詢 (Non-blocking Polling) —— 「時間分片」
+捨棄 `delay()` 函式，改用主迴圈次數作為軟體計數器，並配合狀態位元（Flag）來判斷邊緣觸發(解決電位觸發導致的按鍵連閃問題)。  
+
+`開發板行為觀察`:
+- 無論自動閃爍任務進度如何，只要一按下 PA0，PD12 LED 就會立即切換，肉眼察覺不到延遲
+- PD13 的自動閃爍保持穩定節奏，不受按鍵動作或按鍵去彈跳計數的影響。
 
 # GPIO driver API
 ## 時脈控制 API
