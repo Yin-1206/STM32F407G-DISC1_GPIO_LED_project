@@ -106,6 +106,8 @@
 #define UART4_BASEADDR                (ABP1PERIPHERAL_BASEADDR + 0x4C00)
 #define UART5_BASEADDR                (ABP1PERIPHERAL_BASEADDR + 0x5000)
 
+#define TIM6_BASEADDR                 (ABP1PERIPHERAL_BASEADDR + 0x1000)
+#define TIM7_BASEADDR                 (ABP1PERIPHERAL_BASEADDR + 0x1400)
 
 /*
  * Base addresses of peripherals which are hanging on APB2 bus
@@ -236,6 +238,20 @@ typedef struct{
 	volatile uint32_t CMPCR;            // address offset: 0x20
 }SYSCFG_RegDef_t;
 
+
+typedef struct{
+	volatile uint32_t CR1;   // address offset: 0x00, 控制暫存器 1
+	volatile uint32_t CR2;   // address offset: 0x04, 控制暫存器 2
+	uint32_t RESERVED;       // address offset: 0x08, 預留空間
+	volatile uint32_t DIER;  // address offset: 0x0C, 中斷啟用暫存器
+	volatile uint32_t SR;    // address offset: 0x10, 狀態暫存器
+	volatile uint32_t EGR;   // address offset: 0x14, 事件產生暫存器
+	uint32_t RESERVED2[3];   // address offset: 0x18~0x20, 預留空間
+	volatile uint32_t CNT;   // address offset: 0x24, 計數器
+	volatile uint32_t PSC;   // address offset: 0x28, 預分頻器
+	volatile uint32_t ARR;   // address offset: 0x2C, 自動重裝載暫存器
+}TIM6_RegDef_t;
+
 /*
  * peripheral definitions (base address)
  */
@@ -259,7 +275,8 @@ typedef struct{
 #define I2C2  ((I2C_RegDef_t *)I2C2_BASEADDR)
 #define I2C3  ((I2C_RegDef_t *)I2C3_BASEADDR)
 
-
+#define TIM6  ((TIM6_RegDef_t *)TIM6_BASEADDR)
+#define TIM7  ((TIM6_RegDef_t *)TIM7_BASEADDR)
 
 #define RCC    ((RCC_RegDef_t *)RCC_BASEADDR)
 
@@ -317,6 +334,13 @@ typedef struct{
 #define SYSCFG_PCLK_EN()   (RCC->RCC_APB2ENR |= ( 1 << 14 ))
 
 /*
+ * Clock enable macros for TIMx peripheral
+ */
+
+#define TIM6_PCLK_EN()     (RCC->RCC_APB1ENR |= ( 1 << 4 ))
+#define TIM7_PCLK_EN()     (RCC->RCC_APB1ENR |= ( 1 << 5 ))
+
+/*
  * Clock disable macros for GPIOx peripheral
  */
 
@@ -369,6 +393,12 @@ typedef struct{
 
 #define SYSCFG_PCLK_DI()   (RCC->RCC_APB2ENR &= ~( 1 << 14 ))
 
+/*
+ * Clock disable macros for TIMx peripheral
+ */
+
+#define TIM6_PCLK_DI()     (RCC->RCC_APB1ENR &= ~( 1 << 4 ))
+#define TIM7_PCLK_DI()     (RCC->RCC_APB1ENR &= ~( 1 << 5 ))
 
 /*
  * Macros to reset GPIOx peripherals
