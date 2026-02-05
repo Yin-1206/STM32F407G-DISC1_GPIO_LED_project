@@ -26,6 +26,25 @@
 - 無論自動閃爍任務進度如何，只要一按下 PA0，PD12 LED 就會立即切換，肉眼察覺不到延遲
 - PD13 的自動閃爍保持穩定節奏，不受按鍵動作或按鍵去彈跳計數的影響。
 
+# Interrupt(中斷)
+以EXTI + TIMER (Basic Timer: TIM6、TIM7)進行LED燈閃爍，主迴圈`while(1)`為空。
+
+## clocktree
+使用 HSI (16MHz)作為 System Clock，Timer 的計數頻率是由輸入時鐘經過 Prescaler (PSC) 分頻後決定的。  
+
+<img width="636" height="395" alt="image" src="https://github.com/user-attachments/assets/f658edc8-fb55-4753-942b-5cac3557f2f3" />
+
+>說明: 設定 TIM6->PSC = 16000 - 1 後，計數器暫存器（CNT）每隔 1ms 會加 1。 因此，將 ARR (Auto-Reload Register) 設為 20 - 1，計數器數到 20 下（即 20ms）就會產生一次中斷。
+
+## User Button (PA0)
+
+`特性` : 
+- 外部下拉電阻 (External Pull-down)：PA0 接腳已透過硬體電路連接下拉電阻至 GND，確保按鈕未按下時處於穩定低電位。
+- 按鈕觸發邏輯：按鈕按下時會連通 VDD (3.3V)。
+
+`軟體對應配置` :
+- 正緣觸發(按鈕按下瞬間觸發)。
+
 # GPIO driver API
 ## 時脈控制 API
 `void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDI)`
